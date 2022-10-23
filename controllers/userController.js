@@ -58,12 +58,38 @@ module.exports = {
       )
       .then(() => res.json({ message: 'User and thoughts deleted.' }))
       .catch((err) => res.status(500).json(err));
-  }
+  },
 
 //! (/api/users/:userId/friends/:friendId)
 
 // TODO: POST to add a new friend to a user's friend list
-// TODO: DELETE to remove user by its id
+  addFriend({ params, body }, res) {
+    User.findOneAndUpdate(
+      { _id: params.userId },
+      { $push: { friends: params.friendId } },
+      { new: true, runValidators: true }
+    )
+      .then(dbFriendData => {
+        !dbFriendData
+        ? res.status(404).json({ message: 'No friends with that ID.' })
+        : res.json(dbFriendData);
+      })
+      .catch(err => res.json(err));
+  },
 
+// TODO: DELETE to remove a friend from a user's friend list
+  removeFriend({ params }, res) {
+    User.findOneAndUpdate(
+      { _id: params.userId },
+      { $pull: { friends: {friendId: params.friendId } } },
+      { new: true }
+    )
+      .then(dbUserData => {
+        !dbUserData
+        ? res.status(404).json({ message: 'No friends with that ID.' })
+        : res.json(dbUserData)
+      })
+      .catch(err => res.json(err));
+    }
 
 };
