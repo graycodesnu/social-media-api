@@ -2,7 +2,7 @@ const { User, Thought } = require('../models');
 
 module.exports = {
 
-//***** /api/thoughts *****
+//! (/api/thoughts)
 
 // TODO: GET all thoughts 
 // TODO: GET thought by id
@@ -11,7 +11,7 @@ module.exports = {
 // TODO: DELETE to remove thought by its id 
 
 
-//***** /api/thoughts/:thoughtId/reactions *****
+//! (/api/thoughts/:thoughtId/reactions)
 
 // TODO: POST to create a reaction stored in a single thought's **reactions** array field
 // TODO: DELETE to pull and remove a reaction by the reaction's **reactionId** value
