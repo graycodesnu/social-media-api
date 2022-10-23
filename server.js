@@ -1,22 +1,19 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const db = require('./config/connection');
+const routes = require('./routes');
 
-const app = express();
+const cwd = process.cwd();
+
 const PORT = process.env.PORT || 3001;
+const app = express();
 
-app.use(express.json());
+
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(routes);
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-media-api', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, err => {
-    if (err) throw err;
-    console.log('Connected to MongoDB!')
+db.once('open', () => {
+  app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
+  });
 });
-
-mongoose.set('debug', true);
-
-app.use(require('./routes/index'));
-
-app.listen(PORT, () => console.log(`Connected on localhost:${PORT}`));

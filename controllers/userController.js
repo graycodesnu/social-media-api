@@ -69,10 +69,10 @@ module.exports = {
       { $push: { friends: params.friendId } },
       { new: true, runValidators: true }
     )
-      .then(dbFriendData => {
-        !dbFriendData
+      .then(friendData => {
+        !friendData
         ? res.status(404).json({ message: 'No friends with that ID.' })
-        : res.json(dbFriendData);
+        : res.json(friendData);
       })
       .catch(err => res.json(err));
   },
@@ -81,7 +81,7 @@ module.exports = {
   removeFriend({ params }, res) {
     User.findOneAndUpdate(
       { _id: params.userId },
-      { $pull: { friends: {friendId: params.friendId } } },
+      { $pull: { friends: { friendId: params.friendId } } },
       { new: true }
     )
       .then(dbUserData => {
