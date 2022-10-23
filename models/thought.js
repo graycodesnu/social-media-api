@@ -33,6 +33,7 @@ const reactionSchema = new Schema(
       type: String,
       required: true,
       maxLength: 280,
+      minLength: 4,
     },
     username: {
       type: String,
@@ -43,11 +44,17 @@ const reactionSchema = new Schema(
       default: Date.now,
       // TODO: Use a getter method to format the timestamp on query
     },
+  },
+  {
     toJson: {
-      getters: true
-    }
+    getters: true
+  }
   }
 );
+
+thoughtSchema.virtual('reactionCount').get(function() {
+  return this.reactions.lenghth;
+});
 
 const Thought = model('Thought', thoughtSchema);
 
