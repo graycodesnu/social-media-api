@@ -6,9 +6,9 @@ module.exports = {
 
 // TODO: GET all thoughts 
 // TODO: GET thought by id
-// TODO: POST new thought (associate posting user's id)
+// TODO: POST new thought (associate with posting user's id)
 // TODO: PUT to update thought by id
-// TODO: DELETE to remove thought by user id 
+// TODO: DELETE to remove thought by its id 
 
 
 //***** /api/thoughts/:thoughtId/reactions *****
