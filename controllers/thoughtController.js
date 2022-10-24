@@ -74,25 +74,25 @@ module.exports = {
   },
 
 //! (/api/thoughts/:thoughtId/reactions)
-// TODO: POST to create a reaction stored in a single thought's **reactions** array field
+// POST to create a reaction stored in a single thought's **reactions** array field
   addReaction({ params, body}, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
       { $push: { reactions: body } },
       { new: true, runValidators: true }
     )
-      .then(thoughtData => {
-        if(thoughtData) {
-          res.status(404).json({ message: 'No thought with this ID.' });
+      .then((thoughtData) => {
+        if (!thoughtData) {
+          res.status(404).json({ message: 'No Thought found with this id' });
           return;
         }
         res.json(thoughtData);
       })
-      .catch(err => res.json(err));
+      .catch((err) => res.status(400).json(err));
   },
 
 
-// TODO: DELETE to pull and remove a reaction by the reaction's **reactionId** value
+// DELETE to pull and remove a reaction by the reaction's **reactionId** value
   deleteReaction({ params }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
