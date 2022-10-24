@@ -4,14 +4,15 @@ module.exports = {
 
 //! (/api/users)
 
-// TODO: GET all users
+// GET all users
   getUsers(req, res) {
     User.find()
       .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
 
-// TODO: Get user by id
+//! (/api/users/:userId)
+// GET user by id
   getOneUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .select('-__v')
@@ -23,7 +24,8 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-// TODO: POST new user
+//! (/api/users)
+// POST new user
   createUser(req, res) {
     User.create(req.body)
       .then((user) => res.json(user))
@@ -33,7 +35,8 @@ module.exports = {
       });
   },
 
-// TODO: PUT to update user by id
+//! (/api/users/:userId)
+// PUT to update user by id
   updateUser(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -48,7 +51,8 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-// TODO: DELETE to remove user by id
+//! (/api/users/:userId)
+// DELETE to remove user by id
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
@@ -59,6 +63,7 @@ module.exports = {
       .then(() => res.json({ message: 'User and thoughts deleted.' }))
       .catch((err) => res.status(500).json(err));
   },
+
 
 //! (/api/users/:userId/friends/:friendId)
 
