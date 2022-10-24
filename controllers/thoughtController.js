@@ -83,7 +83,7 @@ module.exports = {
     )
       .then(thoughtData => {
         if(thoughtData) {
-          res.status(404).json({ message: 'No reaction with this ID. '});
+          res.status(404).json({ message: 'No thought with this ID.' });
           return;
         }
         res.json(thoughtData);
